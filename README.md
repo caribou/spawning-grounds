@@ -23,15 +23,15 @@ some premade caching functions are provided:
 * f -> the function whose results should be cached
 * timeout -> the time in ms for which the cached results should be reused
 
-(def cfact
-  (cache.timed/cached
-    #(first
-      (last
-       (take-while
-        (comp not zero? second)
-        (iterate
-         (fn [[acc i]] [(* acc i) (dec i)]) [1 %]))))
-    (* 1000 60 60)))
+   (def cfact
+     (cache.timed/cached
+       #(first
+         (last
+          (take-while
+           (comp not zero? second)
+           (iterate
+            (fn [[acc i]] [(* acc i) (dec i)]) [1 %]))))
+       (* 1000 60 60)))
 
 cfact will compute the factorial of a number, and cache the value for an hour
 before regenerating
