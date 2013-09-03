@@ -20,8 +20,9 @@ some premade caching functions are provided:
 
 `(cache.timed/cached f timeout)`
 
-* f -> the function whose results should be cached
-* timeout -> the time in ms for which the cached results should be reused
+f -> the function whose results should be cached
+
+timeout -> the time in ms for which the cached results should be reused
 
     (def cfact
       (cache.timed/cached
