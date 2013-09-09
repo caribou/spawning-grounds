@@ -27,7 +27,18 @@
       cached)))
 
 (defn make-cached
-  [f cached-form valid? tokenize reset-generate purge-argument reset-argument]
+  [f {:keys [cached-form
+             valid?
+             tokenize
+             reset-generate
+             purge-argument
+             reset-argument]
+      :or {cached-form identity
+           valid? (constantly true)
+           tokenize (constantly true)
+           reset-generate identity
+           purge-argument :purge
+           reset-argument :reset}}]
   (let [store (atom {})
         validator (atom valid?)]
     (fn [& [action? & rest :as args]]

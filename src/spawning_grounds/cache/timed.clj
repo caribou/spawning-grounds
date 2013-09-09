@@ -25,9 +25,9 @@
   [f timeout & [caching-compare purge-argument reset-argument]]
   (cache/make-cached
    f
-   (or caching-compare identity)
-   (make-time-validator timeout)
-   time-tokenize
-   make-time-validator
-   (or purge-argument :purge)
-   (or reset-argument :reset)))
+   {:cached-form (or caching-compare identity)
+    :valid? (make-time-validator timeout)
+    :tokenize time-tokenize
+    :reset-generate make-time-validator
+    :purge-argument (or purge-argument :purge)
+    :reset-argument (or reset-argument :reset)}))

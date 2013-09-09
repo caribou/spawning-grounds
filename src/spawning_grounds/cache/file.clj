@@ -17,12 +17,9 @@
   [f & [purge-argument]]
   (cache/make-cached
    f
-   identity
-   filename-validator
-   filename-tokenize
-   (constantly filename-validator)
-   (or purge-argument :purge)
-   (gensym)))
+   {:valid? filename-validator
+    :tokenize filename-tokenize
+    :reset-generate (constantly filename-validator)}))
 
 (defn file-arg-compare
   "treat any two file args as equal if they have the same canonical file"
@@ -44,9 +41,7 @@
   [f & [purge-argument]]
   (cache/make-cached
    f
-   file-compare
-   file-validator
-   file-tokenize
-   (constantly file-validator)
-   (or purge-argument :purge)
-   (gensym)))
+   {:cached-form file-arg-compare
+    :valid? file-validator
+    :tokenize file-tokenize
+    :reset-generate (constantly file-validator)}))
